@@ -26,11 +26,21 @@ namespace Uno.Testing.TestAdapter
 
 			logger.SendMessage(TestMessageLevel.Error, "DiscoverTests");
 
-			discoverySink.SendTestCase(new TestCase("Bla.Bla.Test", new Uri("executor://UnoExecutor"), sources.First())
+
+			var tc = new TestCase("MuUnoTestApp.Tests.UnitTest1.JustATestInTheTestAssembly", new Uri("executor://UnoExecutor"), sources.First())
 			{
-				DisplayName = "The.Test.FriendlyName",
+				DisplayName = "JustATestInTheTestAssembly (iOS)",
 				CodeFilePath = @"C:\Users\David\source\repos\UnoTestLibrary\UnoTestLibrary\Class1.cs",
-			});
+			};
+			//tc.SetPropertyValue(TestProperty.Register() ());//.Traits.Add(new Trait("Category", "iOS"));
+
+			discoverySink.SendTestCase(tc);
+
+			//discoverySink.SendTestCase(new TestCase("MuUnoTestApp.Tests.UnitTest1.JustATestInTheTestAssembly_Android", new Uri("executor://UnoExecutor"), sources.First())
+			//{
+			//	DisplayName = "JustATestInTheTestAssembly (Android)",
+			//	CodeFilePath = @"C:\Users\David\source\repos\UnoTestLibrary\UnoTestLibrary\Class1.cs",
+			//});
 		}
 	}
 }

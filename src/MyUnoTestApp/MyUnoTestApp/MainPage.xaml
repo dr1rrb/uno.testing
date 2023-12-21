@@ -6,8 +6,13 @@
   <StackPanel
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
-    <TextBlock AutomationProperties.AutomationId="HelloTextBlock"
+    <TextBlock x:Name="_info"
           Text="Hello Uno Platform"
-          HorizontalAlignment="Center" />
-  </StackPanel>
+          HorizontalAlignment="Center" TextWrapping="Wrap" />
+		<Button Content="Start test host"
+		  Click="Button_Click" />
+		<TextBlock x:Name="_output"
+					Text="Hello Uno Platform"
+					HorizontalAlignment="Center" TextWrapping="Wrap" />
+	</StackPanel>
 </Page>

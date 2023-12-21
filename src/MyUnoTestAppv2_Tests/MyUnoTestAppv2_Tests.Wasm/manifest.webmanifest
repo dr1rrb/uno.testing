@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "MyUnoTestAppv2_Tests",
+  "display": "standalone",
+  "name": "MyUnoTestAppv2_Tests",
+  "short_name": "MyUnoTestAppv2_Tests",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

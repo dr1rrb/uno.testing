@@ -1,0 +1,10 @@
+{
+	"profiles": {
+		"MyUnoTestAppv2_Tests.Windows (Unpackaged)": {
+			"commandName": "Project"
+		},
+		"MyUnoTestAppv2_Tests.Windows (Package)": {
+			"commandName": "MsixPackage"
+		}
+	}
+}

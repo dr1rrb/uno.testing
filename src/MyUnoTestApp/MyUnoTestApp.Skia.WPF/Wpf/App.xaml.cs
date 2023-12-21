@@ -7,6 +7,8 @@ public partial class App : WpfApp
 {
 	public App()
 	{
+		
+
 		if (Environment.GetEnvironmentVariable("UNO_TESTING_SOURCE") is { Length: > 0 } testSource)
 		{
 			Assembly.LoadFile(testSource);

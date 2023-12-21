@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Disable the copy of the MSTest.TestAdapter resources to the output (cf. MSTest.TestAdapter.targets) -->
+		<EnableMSTestV2CopyResources>False</EnableMSTestV2CopyResources>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.8.0" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.0.4" PrivateAsset="All" GeneratePathProperty="true" />
+		<!--ReferenceOutputAssembly="False"-->
+	</ItemGroup>
+
+	<Target Name="_AddReferenceToMSTestAdapter" BeforeTargets="PrepareForBuild">
+		<ItemGroup>
+			<Reference Include="@(TestAdapterContent)" />
+		</ItemGroup>
+	</Target>
+
+	<!--<Target Name="CopyMSTestV2Resources" BeforeTargets="PrepareForBuild" Condition=" '$(EnableMSTestV2CopyResources)' == 'true' " DependsOnTargets="GetMSTestV2CultureHierarchy">
+		<PropertyGroup>
+			<CurrentUICultureHierarchy>%(CurrentUICultureHierarchy.Identity)</CurrentUICultureHierarchy>
+		</PropertyGroup>
+
+		<ItemGroup>
+			<MSTestV2Files Include="$(MSBuildThisFileDirectory)..\_localization\*.dll" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<Reference Include="HarfBuzzSharp">
+				<HintPath>..\MyUnoTestApp\MyUnoTestApp.Skia.WPF\bin\Debug\net8.0-windows\HarfBuzzSharp.dll</HintPath>
+			</Reference>
+
+			<Content Include="@(PkgMSTest_TestAdapter)->'%(RootDir)%(Directory)$(CurrentUICultureHierarchy)\%(FileName).resources.dll')"
+					Condition="Exists('%(RootDir)%(Directory)$(CurrentUICultureHierarchy)\%(FileName).resources.dll')">
+				 <Link>$(CurrentUICultureHierarchy)\%(FileName).resources.dll</Link>
+				 <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				 <BaseAssemblyFullPath>%(FullPath)</BaseAssemblyFullPath>
+				 <Visible>False</Visible>
+			</Content>
+		</ItemGroup>
+	</Target>-->
+
+</Project>

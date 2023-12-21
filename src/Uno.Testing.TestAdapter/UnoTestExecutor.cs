@@ -60,12 +60,18 @@ namespace Uno.Testing.TestAdapter
 		/// <inheritdoc />
 		public bool ShouldAttachToTestHost(IEnumerable<string> sources, IRunContext runContext)
 		{
+			Debugger.Launch();
+			Debugger.Break();
+
 			return true;
 		}
 
 		/// <inheritdoc />
 		public bool ShouldAttachToTestHost(IEnumerable<TestCase> tests, IRunContext runContext)
 		{
+			Debugger.Launch();
+			Debugger.Break();
+
 			return true;
 		}
 	}

@@ -30,11 +30,13 @@
     <PackageReference Include="SkiaSharp.Skottie" />
     <PackageReference Include="Uno.WinUI.DevServer" Condition="'$(Configuration)'=='Debug'" />
     <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" />
+	  <PackageReference Include="MSTest.TestFramework" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="Wpf\App.xaml" XamlRuntime="Wpf" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Uno.Testing.EmbeddedTestHost\Uno.Testing.EmbeddedTestHost.csproj" />
     <ProjectReference Include="..\MyUnoTestApp\MyUnoTestApp.csproj" />
   </ItemGroup>
   <Import Project="..\MyUnoTestApp.Shared\base.props" />

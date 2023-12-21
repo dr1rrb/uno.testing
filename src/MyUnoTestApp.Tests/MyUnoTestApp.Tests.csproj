@@ -1,0 +1,90 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<!--<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) or '$(EnableWindowsTargeting)' == 'true'">$(TargetFrameworks);net8.0-windows10.0.19041</TargetFrameworks>-->
+		<!--<TargetFrameworks>$(TargetFrameworks);net8.0</TargetFrameworks>-->
+		<TargetFrameworks>$(TargetFrameworks);net8.0;net8.0-ios;net8.0-maccatalyst;net8.0-android</TargetFrameworks>
+		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+		<!--<GenerateLibraryLayout>true</GenerateLibraryLayout>-->
+
+		<IsPackable>false</IsPackable>
+		<!--<TestProject>true</TestProject>
+		<IsTestProject>true</IsTestProject>-->
+		<RunSettingsFilePath>$(MSBuildProjectDirectory)\Uno.Testing.runsettings</RunSettingsFilePath>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Uno.WinUI" Version="5.0.48" />
+	</ItemGroup>
+	<Choose>
+		<When Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+			<ItemGroup>
+				<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230602002" />
+				<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+			</ItemGroup>
+			<ItemGroup>
+			<!--
+					If you encounter this error message:
+
+						error NETSDK1148: A referenced assembly was compiled using a newer version of Microsoft.Windows.SDK.NET.dll.
+						Please update to a newer .NET SDK in order to reference this assembly.
+
+					This means that the two packages below must be aligned with the "build" version number of
+					the "Microsoft.Windows.SDK.BuildTools" package above, and the "revision" version number
+					must be the highest found in https://www.nuget.org/packages/Microsoft.Windows.SDK.NET.Ref.
+					-->
+			<!-- <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22621.28" />
+					<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22621.28" /> -->
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<Content Include="Assets\**" />
+				<Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
+				<Compile Update="**\*.xaml.cs">
+					<DependentUpon>%(Filename)</DependentUpon>
+				</Compile>
+				<PriResource Include="**\*.resw" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+	<ItemGroup>
+		<UpToDateCheckInput Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<TestProject>true</TestProject>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectCapability Include="TestContainer" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" Condition="$(TargetFramework)=='net8.0'" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+		<PackageReference Include="coverlet.collector" Version="6.0.0" />
+	</ItemGroup>
+
+	<Target Name="_OverrideTestHost" AfterTargets="Build">
+		<Copy
+			SourceFiles="C:\Src\GitHub\dr1rrb\uno.testing\src\Uno.Testing.RuntimeManager\bin\Debug\net472\Uno.Testing.RuntimeManager.exe"
+			DestinationFiles="$(TargetDir)\testhost.exe"
+			OverwriteReadOnlyFiles="True"
+			Condition="$(TargetFramework)=='net8.0-android'"/>
+		
+
+		<!--<Copy
+			SourceFiles="C:\Src\GitHub\dr1rrb\uno.testing\src\Uno.Testing.RuntimeManager\bin\Debug\net8.0\Uno.Testing.RuntimeManager.exe"
+			DestinationFiles="$(TargetDir)\testhost.exe"
+			OverwriteReadOnlyFiles="True" />
+		<Copy
+			SourceFiles="C:\Src\GitHub\dr1rrb\uno.testing\src\Uno.Testing.RuntimeManager\bin\Debug\net8.0\Uno.Testing.RuntimeManager.dll"
+			DestinationFiles="$(TargetDir)\testhost.dll"
+			OverwriteReadOnlyFiles="True" />
+		<Copy
+			SourceFiles="C:\Src\GitHub\dr1rrb\uno.testing\src\Uno.Testing.RuntimeManager\bin\Debug\net8.0\Uno.Testing.RuntimeManager.dll"
+			DestinationFolder="$(TargetDir)"
+			OverwriteReadOnlyFiles="True" />-->
+	</Target>
+</Project>

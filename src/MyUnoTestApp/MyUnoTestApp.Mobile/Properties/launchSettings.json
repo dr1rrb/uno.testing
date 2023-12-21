@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "MyUnoTestApp.Mobile": {
+      "commandName": "Project",
+      "remoteDebugEnabled": true,
+      "authenticationMode": "None"
+    }
+  }
+}
